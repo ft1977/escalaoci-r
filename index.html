@@ -51,9 +51,22 @@
             son estrictamente confidenciales.
         </p>
         <button onclick="startAssessment()"
-            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg shadow transition duration-200 text-lg">
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg shadow transition duration-200 text-lg mb-8">
             Comenzar Evaluación
         </button>
+
+        <!-- Botón para Fabio -->
+        <div class="pt-6 border-t border-gray-100">
+            <button onclick="openPortal()"
+                class="text-gray-400 hover:text-blue-600 text-sm font-medium transition-colors flex items-center justify-center gap-1 mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                    </path>
+                </svg>
+                Acceso Profesional
+            </button>
+        </div>
     </div>
 
     <!-- Pantalla de Preguntas -->
@@ -109,7 +122,7 @@
         </button>
     </div>
 
-    <!-- Portal del Psicólogo (Oculto) -->
+    <!-- Portal del Psicólogo -->
     <div id="psychologist-portal" class="max-w-2xl w-full bg-white rounded-xl shadow-lg p-8 hidden">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Acceso Profesional - Fabio Torres</h2>
 
@@ -138,9 +151,6 @@
             class="mt-8 text-gray-400 hover:text-gray-600 text-sm italic underline w-full text-center">Cerrar
             Sesión</button>
     </div>
-
-    <!-- Gatillo oculto para abrir el portal (clic 3 veces rápido) -->
-    <div class="hidden-trigger" onclick="triggerPortal()"></div>
 
     <script>
         const questions = [
@@ -224,22 +234,9 @@
             window.location.href = whatsappUrl;
         }
 
-        // --- Lógica del Portal Profesional ---
-
-        function triggerPortal() {
-            const now = Date.now();
-            if (now - lastClickTime < 500) {
-                portalClicks++;
-            } else {
-                portalClicks = 1;
-            }
-            lastClickTime = now;
-
-            if (portalClicks >= 3) {
-                Object.values(screens).forEach(s => s.classList.add('hidden'));
-                screens.portal.classList.remove('hidden');
-                portalClicks = 0;
-            }
+        function openPortal() {
+            Object.values(screens).forEach(s => s.classList.add('hidden'));
+            screens.portal.classList.remove('hidden');
         }
 
         function unlockPortal() {
