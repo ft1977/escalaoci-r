@@ -95,9 +95,9 @@
         <input type="text" id="patient-name" placeholder="Tu nombre completo"
             class="w-full p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl mb-6 focus:border-blue-500 focus:bg-white transition-all outline-none text-gray-700 font-medium">
 
-        <button onclick="startAssessment()"
+        <button onclick="goToInstructions()"
             class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-blue-200 transition-all duration-300 text-lg">
-            Empezar prueba
+            Continuar
         </button>
 
         <button onclick="openPortal()"
@@ -106,11 +106,47 @@
         </button>
     </div>
 
+    <!-- Pantalla de Instrucciones Clínicas -->
+    <div id="instruction-screen" class="max-w-md w-full premium-card rounded-3xl p-10 text-center hidden">
+        <div class="w-16 h-1 bg-blue-600 mx-auto mb-8 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Nota de Validez Clínica</h2>
+
+        <div class="text-left space-y-5 mb-10 text-gray-600 leading-relaxed">
+            <p>Para garantizar la precisión de este instrumento, es fundamental que sus respuestas reflejen su
+                experiencia real con la mayor **honestidad y reflexión posible**.</p>
+            <p>Le invitamos a realizar una lectura consciente de cada enunciado. No existen respuestas correctas o
+                incorrectas; la veracidad de su testimonio es el pilar para un acompañamiento clínico efectivo.</p>
+        </div>
+
+        <button onclick="startAssessment()"
+            class="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-xl">
+            Entiendo, comenzar evaluación
+        </button>
+
+        <button onclick="goBackToWelcome()"
+            class="mt-6 text-gray-400 text-xs font-bold hover:text-gray-600 transition-colors flex items-center justify-center gap-2 mx-auto">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18">
+                </path>
+            </svg>
+            Corregir nombre
+        </button>
+    </div>
+
     <!-- Pantalla de Preguntas -->
     <div id="question-screen" class="max-w-md w-full premium-card rounded-3xl p-8 hidden">
         <div class="mb-8">
             <div class="flex justify-between items-center mb-4">
-                <span id="progress-text" class="text-xs font-bold text-blue-600 uppercase tracking-wider">Pregunta 1 de
+                <button onclick="previousQuestion()" id="back-btn"
+                    class="text-gray-400 hover:text-blue-600 transition-colors flex items-center gap-1 invisible">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                        </path>
+                    </svg>
+                    <span class="text-[10px] font-bold uppercase tracking-tighter">Volver</span>
+                </button>
+                <span id="progress-text" class="text-xs font-bold text-blue-600 uppercase tracking-wider">Pregunta 1
+                    de
                     18</span>
                 <span id="percentage-text" class="text-xs font-bold text-gray-400">5%</span>
             </div>
@@ -279,18 +315,30 @@
 
         const screens = {
             welcome: document.getElementById('welcome-screen'),
+            instruction: document.getElementById('instruction-screen'),
             question: document.getElementById('question-screen'),
             finish: document.getElementById('finish-screen'),
             portal: document.getElementById('psychologist-portal')
         };
 
-        function startAssessment() {
+        function goToInstructions() {
             patientName = document.getElementById('patient-name').value.trim();
             if (!patientName) {
                 alert("Por favor, ingresa tu nombre completo.");
                 return;
             }
             screens.welcome.classList.add('hidden');
+            screens.instruction.classList.remove('hidden');
+            screens.instruction.classList.add('fade-in');
+        }
+
+        function goBackToWelcome() {
+            screens.instruction.classList.add('hidden');
+            screens.welcome.classList.remove('hidden');
+        }
+
+        function startAssessment() {
+            screens.instruction.classList.add('hidden');
             screens.question.classList.remove('hidden');
             screens.question.classList.add('fade-in');
             showQuestion();
@@ -303,25 +351,32 @@
             document.getElementById('percentage-text').textContent = `${percent}%`;
             document.getElementById('progress-bar').style.width = `${percent}%`;
 
+            // Gestionar visibilidad del botón de volver
+            const backBtn = document.getElementById('back-btn');
+            if (currentQuestionIndex > 0) {
+                backBtn.classList.remove('invisible');
+            } else {
+                backBtn.classList.add('invisible');
+            }
+
             // Forzar limpieza de foco y selección
             window.scrollTo(0, 0);
             document.activeElement?.blur();
         }
 
         function recordAnswer(value, btn) {
-            // Animación visual rápida de selección
             btn.classList.remove('bg-gray-50');
             btn.classList.add('bg-blue-600', 'text-white');
 
             setTimeout(() => {
-                answers.push({ q: questions[currentQuestionIndex], v: value });
+                // Guardar o actualizar respuesta
+                answers[currentQuestionIndex] = { q: questions[currentQuestionIndex], v: value };
                 currentQuestionIndex++;
 
                 if (currentQuestionIndex < questions.length) {
                     screens.question.classList.add('opacity-0');
                     setTimeout(() => {
                         showQuestion();
-                        // Resetear estilos de botones para la siguiente pregunta
                         document.querySelectorAll('.btn-option').forEach(b => {
                             b.classList.add('bg-gray-50');
                             b.classList.remove('bg-blue-600', 'text-white');
@@ -332,6 +387,21 @@
                     finalizeAndSend();
                 }
             }, 150);
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                screens.question.classList.add('opacity-0');
+                setTimeout(() => {
+                    showQuestion();
+                    document.querySelectorAll('.btn-option').forEach(b => {
+                        b.classList.add('bg-gray-50');
+                        b.classList.remove('bg-blue-600', 'text-white');
+                    });
+                    screens.question.classList.remove('opacity-0');
+                }, 250);
+            }
         }
 
         async function finalizeAndSend() {
