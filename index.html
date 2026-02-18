@@ -237,9 +237,9 @@
                     criterio. Su honestidad es el cimiento de nuestra intervención.</p>
             </div>
 
-            <button onclick="startAssessment()"
+            <button onclick="goToExplanation()"
                 class="w-full bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-5 px-6 rounded-2xl transition-all shadow-2xl shadow-blue-100 transform hover:-translate-y-1 active:scale-95">
-                Acepto, empezar ahora
+                Acepto, continuar
             </button>
 
             <button onclick="goBackToWelcome()"
@@ -249,6 +249,59 @@
                         d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                 </svg>
                 Corregir mis datos
+            </button>
+        </div>
+
+        <!-- Pantalla de Explicación de la Prueba -->
+        <div id="explanation-screen" class="premium-card rounded-[2.5rem] p-10 text-center hidden">
+            <h2 class="text-3xl font-extrabold text-slate-900 mb-6">Sobre la evaluación</h2>
+
+            <div class="text-left space-y-6 mb-10 text-slate-600 leading-relaxed text-sm">
+                <p>Usted realizará el **OCI-R**, un inventario clínico diseñado para evaluar el nivel de malestar
+                    asociado a ciertos pensamientos y comportamientos durante el **último mes**.</p>
+
+                <div class="bg-blue-50/50 p-6 rounded-2xl border border-blue-100 italic">
+                    "Por favor, seleccione la opción que mejor indique cuánto le ha molestado o angustiado cada
+                    experiencia recientemente."
+                </div>
+
+                <div class="space-y-3">
+                    <p class="font-bold text-slate-800">Significado de las opciones:</p>
+                    <ul class="space-y-2">
+                        <li class="flex gap-3 items-center"><span
+                                class="w-6 h-6 bg-slate-100 rounded-lg flex-shrink-0 flex items-center justify-center font-bold text-slate-400 text-[10px]">0</span>
+                            <span class="text-xs">**Nada**: No ha ocurrido o no me ha molestado.</span></li>
+                        <li class="flex gap-3 items-center"><span
+                                class="w-6 h-6 bg-slate-100 rounded-lg flex-shrink-0 flex items-center justify-center font-bold text-slate-400 text-[10px]">1</span>
+                            <span class="text-xs">**Un poco**: Me ha molestado de forma leve o poco frecuente.</span>
+                        </li>
+                        <li class="flex gap-3 items-center"><span
+                                class="w-6 h-6 bg-slate-100 rounded-lg flex-shrink-0 flex items-center justify-center font-bold text-slate-400 text-[10px]">2</span>
+                            <span class="text-xs">**Moderadamente**: Me ha molestado de forma ocasional y clara.</span>
+                        </li>
+                        <li class="flex gap-3 items-center"><span
+                                class="w-6 h-6 bg-slate-100 rounded-lg flex-shrink-0 flex items-center justify-center font-bold text-slate-400 text-[10px]">3</span>
+                            <span class="text-xs">**Mucho**: Me ha molestado frecuentemente y con intensidad.</span>
+                        </li>
+                        <li class="flex gap-3 items-center"><span
+                                class="w-6 h-6 bg-slate-100 rounded-lg flex-shrink-0 flex items-center justify-center font-bold text-slate-400 text-[10px]">4</span>
+                            <span class="text-xs">**Muchísimo**: Me ha molestado casi siempre o de forma extrema.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <button onclick="startAssessment()"
+                class="w-full bg-slate-900 hover:bg-blue-600 text-white font-extrabold py-5 px-6 rounded-2xl transition-all shadow-xl transform hover:-translate-y-1 active:scale-95">
+                Empezar evaluación
+            </button>
+
+            <button onclick="goBackToInstructions()"
+                class="mt-8 text-slate-400 text-xs font-bold hover:text-slate-600 transition-colors flex items-center justify-center gap-2 mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Ver compromiso ético
             </button>
         </div>
 
@@ -461,6 +514,7 @@
         const screens = {
             welcome: document.getElementById('welcome-screen'),
             instruction: document.getElementById('instruction-screen'),
+            explanation: document.getElementById('explanation-screen'),
             question: document.getElementById('question-screen'),
             finish: document.getElementById('finish-screen'),
             portal: document.getElementById('psychologist-portal')
@@ -483,10 +537,23 @@
         function goBackToWelcome() {
             screens.instruction.classList.add('hidden');
             screens.welcome.classList.remove('hidden');
+            screens.welcome.classList.add('fade-in');
+        }
+
+        function goToExplanation() {
+            screens.instruction.classList.add('hidden');
+            screens.explanation.classList.remove('hidden');
+            screens.explanation.classList.add('fade-in');
+        }
+
+        function goBackToInstructions() {
+            screens.explanation.classList.add('hidden');
+            screens.instruction.classList.remove('hidden');
+            screens.instruction.classList.add('fade-in');
         }
 
         function startAssessment() {
-            screens.instruction.classList.add('hidden');
+            screens.explanation.classList.add('hidden');
             screens.question.classList.remove('hidden');
             screens.question.classList.add('fade-in');
             showQuestion();
