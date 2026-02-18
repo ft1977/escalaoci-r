@@ -4,155 +4,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluación OCI-R - Seguimiento Clínico</title>
+    <title>Evaluación Clínica - Psicólogo Fabio Torres</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top right, #f8fafc, #eff6ff);
         }
 
-        .btn-option:focus {
-            outline: none;
-            background-color: #dbeafe;
-            border-color: #3b82f6;
+        .premium-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
         }
 
-        .hidden-trigger {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            width: 20px;
-            height: 20px;
-            opacity: 0.1;
-            cursor: pointer;
+        .btn-option {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-option:active {
+            transform: scale(0.98);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress-glow {
+            box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Ocultar scrollbar pero mantener funcionalidad */
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex items-center justify-center p-4">
 
     <!-- Pantalla de Bienvenida -->
-    <div id="welcome-screen"
-        class="max-w-md w-full bg-white rounded-xl shadow-lg p-8 text-center transition-all duration-500">
-        <div class="mb-6">
-            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div id="welcome-screen" class="max-w-md w-full premium-card rounded-3xl p-10 text-center fade-in">
+        <div class="mb-8">
+            <div
+                class="w-20 h-20 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl rotate-3">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
             </div>
-            <h1 class="text-2xl font-bold text-gray-800">Hola, soy el Psicólogo Fabio Torres</h1>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2 tracking-tight">Evaluación OCI-R</h1>
+            <p class="text-gray-500 font-medium">Psicólogo Fabio Torres</p>
         </div>
-        <p class="text-gray-600 mb-6 text-left">
-            Bienvenido/a a esta prueba de evaluación (OCI-R). Este cuestionario me ayudará a entender mejor tus
-            experiencias recientes relacionadas con pensamientos y comportamientos obsesivos o compulsivos.
-            <br><br>
-            Consta de 18 preguntas breves. Por favor, realiza la prueba de manera consciente y honesta. Tus respuestas
-            son estrictamente confidenciales.
-        </p>
-        <button onclick="startAssessment()"
-            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg shadow transition duration-200 text-lg mb-8">
-            Comenzar Evaluación
-        </button>
 
-        <!-- Botón para Fabio -->
-        <div class="pt-6 border-t border-gray-100">
-            <button onclick="openPortal()"
-                class="text-gray-400 hover:text-blue-600 text-sm font-medium transition-colors flex items-center justify-center gap-1 mx-auto">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+        <div class="text-left space-y-4 mb-8">
+            <p class="text-gray-600 leading-relaxed">
+                Hola, esta herramienta me permitirá evaluar tus experiencias recientes para ofrecerte un mejor
+                seguimiento clínico.
+            </p>
+            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100 flex items-start gap-3">
+                <svg class="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z">
                     </path>
                 </svg>
-                Acceso Profesional
-            </button>
+                <p class="text-xs text-blue-800 leading-snug">Ingresa tu nombre para comenzar. Tus respuestas serán
+                    tratadas con total confidencialidad.</p>
+            </div>
         </div>
+
+        <input type="text" id="patient-name" placeholder="Tu nombre completo"
+            class="w-full p-4 bg-gray-50 border-2 border-gray-100 rounded-2xl mb-6 focus:border-blue-500 focus:bg-white transition-all outline-none text-gray-700 font-medium">
+
+        <button onclick="startAssessment()"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-blue-200 transition-all duration-300 text-lg">
+            Empezar prueba
+        </button>
+
+        <button onclick="openPortal()"
+            class="mt-8 text-gray-400 hover:text-blue-500 text-xs font-semibold tracking-widest uppercase transition-colors">
+            Acceso Profesional
+        </button>
     </div>
 
     <!-- Pantalla de Preguntas -->
-    <div id="question-screen" class="max-w-md w-full bg-white rounded-xl shadow-lg p-6 hidden">
-        <div class="mb-6">
+    <div id="question-screen" class="max-w-md w-full premium-card rounded-3xl p-8 hidden">
+        <div class="mb-8">
             <div class="flex justify-between items-center mb-4">
-                <span id="progress-text" class="text-sm font-medium text-gray-500">Pregunta 1 de 18</span>
-                <div class="w-1/2 bg-gray-200 rounded-full h-2">
-                    <div id="progress-bar" class="bg-blue-600 h-2 rounded-full" style="width: 5%"></div>
-                </div>
+                <span id="progress-text" class="text-xs font-bold text-blue-600 uppercase tracking-wider">Pregunta 1 de
+                    18</span>
+                <span id="percentage-text" class="text-xs font-bold text-gray-400">5%</span>
             </div>
-            <h2 id="question-text" class="text-xl font-semibold text-gray-800 leading-relaxed min-h-[5rem]">
-                <!-- La pregunta se insertará aquí -->
-            </h2>
+            <div class="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                <div id="progress-bar" class="bg-blue-600 h-full rounded-full transition-all duration-500 progress-glow"
+                    style="width: 5%"></div>
+            </div>
         </div>
 
+        <h2 id="question-text" class="text-2xl font-bold text-gray-800 leading-snug mb-10 min-h-[6rem]">
+            <!-- La pregunta se insertará aquí -->
+        </h2>
+
         <div id="options-container" class="space-y-3">
-            <button onclick="recordAnswer(0)"
-                class="btn-option w-full text-left bg-gray-50 hover:bg-blue-50 border border-gray-200 p-4 rounded-lg transition duration-200 group">
-                <span class="font-bold text-blue-600 mr-2">0</span> <span class="text-gray-700">Nada</span>
+            <button onclick="recordAnswer(0, this)"
+                class="btn-option w-full text-left bg-gray-50 hover:bg-blue-600 hover:text-white border border-gray-100 p-5 rounded-2xl flex items-center justify-between group">
+                <span class="font-bold">Nada</span>
+                <span
+                    class="w-6 h-6 border-2 border-gray-200 rounded-full group-hover:border-white transition-colors flex items-center justify-center text-[10px] font-black">0</span>
             </button>
-            <button onclick="recordAnswer(1)"
-                class="btn-option w-full text-left bg-gray-50 hover:bg-blue-50 border border-gray-200 p-4 rounded-lg transition duration-200 group">
-                <span class="font-bold text-blue-600 mr-2">1</span> <span class="text-gray-700">Un poco</span>
+            <button onclick="recordAnswer(1, this)"
+                class="btn-option w-full text-left bg-gray-50 hover:bg-blue-600 hover:text-white border border-gray-100 p-5 rounded-2xl flex items-center justify-between group">
+                <span class="font-bold">Un poco</span>
+                <span
+                    class="w-6 h-6 border-2 border-gray-200 rounded-full group-hover:border-white transition-colors flex items-center justify-center text-[10px] font-black">1</span>
             </button>
-            <button onclick="recordAnswer(2)"
-                class="btn-option w-full text-left bg-gray-50 hover:bg-blue-50 border border-gray-200 p-4 rounded-lg transition duration-200 group">
-                <span class="font-bold text-blue-600 mr-2">2</span> <span class="text-gray-700">Moderadamente</span>
+            <button onclick="recordAnswer(2, this)"
+                class="btn-option w-full text-left bg-gray-50 hover:bg-blue-600 hover:text-white border border-gray-100 p-5 rounded-2xl flex items-center justify-between group">
+                <span class="font-bold">Moderadamente</span>
+                <span
+                    class="w-6 h-6 border-2 border-gray-200 rounded-full group-hover:border-white transition-colors flex items-center justify-center text-[10px] font-black">2</span>
             </button>
-            <button onclick="recordAnswer(3)"
-                class="btn-option w-full text-left bg-gray-50 hover:bg-blue-50 border border-gray-200 p-4 rounded-lg transition duration-200 group">
-                <span class="font-bold text-blue-600 mr-2">3</span> <span class="text-gray-700">Mucho</span>
+            <button onclick="recordAnswer(3, this)"
+                class="btn-option w-full text-left bg-gray-50 hover:bg-blue-600 hover:text-white border border-gray-100 p-5 rounded-2xl flex items-center justify-between group">
+                <span class="font-bold">Mucho</span>
+                <span
+                    class="w-6 h-6 border-2 border-gray-200 rounded-full group-hover:border-white transition-colors flex items-center justify-center text-[10px] font-black">3</span>
             </button>
-            <button onclick="recordAnswer(4)"
-                class="btn-option w-full text-left bg-gray-50 hover:bg-blue-50 border border-gray-200 p-4 rounded-lg transition duration-200 group">
-                <span class="font-bold text-blue-600 mr-2">4</span> <span class="text-gray-700">Muchísimo</span>
+            <button onclick="recordAnswer(4, this)"
+                class="btn-option w-full text-left bg-gray-50 hover:bg-blue-600 hover:text-white border border-gray-100 p-5 rounded-2xl flex items-center justify-between group">
+                <span class="font-bold">Muchísimo</span>
+                <span
+                    class="w-6 h-6 border-2 border-gray-200 rounded-full group-hover:border-white transition-colors flex items-center justify-center text-[10px] font-black">4</span>
             </button>
         </div>
     </div>
 
     <!-- Pantalla de Envío -->
-    <div id="finish-screen" class="max-w-md w-full bg-white rounded-xl shadow-lg p-8 text-center hidden">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">Evaluación Finalizada</h2>
-        <p class="text-gray-600 mb-8">Gracias por tu tiempo. Para completar el proceso, haz clic en el botón de abajo
-            para enviar los resultados de forma segura a mi WhatsApp.</p>
-        <button onclick="sendToWhatsApp()"
-            class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-lg shadow transition duration-200 text-lg flex items-center justify-center gap-2">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 448 512">
-                <path
-                    d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.7 17.7 68.9 27.1 106.1 27.1h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.1 0-65.6-8.9-93.9-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.3-16.3-14.6-27.4-32.6-30.6-38.1-3.2-5.6-.3-8.6 2.5-11.4 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.2 3.7-5.5 5.5-9.2 1.9-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.7 23.5 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.5 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
-            </svg>
-            Enviar Resultados
-        </button>
+    <div id="finish-screen" class="max-w-md w-full premium-card rounded-3xl p-10 text-center hidden">
+        <div id="upload-status">
+            <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10 text-blue-600 animate-bounce" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                    </path>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Procesando respuestas</h2>
+            <p class="text-gray-500">Estamos guardando tu evaluación en el sistema clínico...</p>
+        </div>
+
+        <div id="final-actions" class="hidden fade-in">
+            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">¡Prueba Completada!</h2>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+                Tus respuestas han sido enviadas correctamente a mi correo. <br><br>
+                <strong>¿Qué debes hacer ahora?</strong> <br>
+                Solo pulsa el botón de abajo para que yo sepa en mi WhatsApp que ya has terminado. ¡Eso es todo!
+            </p>
+            <button onclick="notifyWhatsApp()"
+                class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-5 px-6 rounded-2xl shadow-lg shadow-green-100 transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 448 512">
+                    <path
+                        d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.7 17.7 68.9 27.1 106.1 27.1h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.1 0-65.6-8.9-93.9-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.3-16.3-14.6-27.4-32.6-30.6-38.1-3.2-5.6-.3-8.6 2.5-11.4 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.2 3.7-5.5 5.5-9.2 1.9-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.7 23.5 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.5 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
+                </svg>
+                Confirmar por WhatsApp
+            </button>
+        </div>
     </div>
 
     <!-- Portal del Psicólogo -->
-    <div id="psychologist-portal" class="max-w-2xl w-full bg-white rounded-xl shadow-lg p-8 hidden">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">Acceso Profesional - Fabio Torres</h2>
-
-        <div id="auth-section">
-            <input type="password" id="admin-pass" placeholder="Ingresa clave"
-                class="w-full p-4 border rounded-lg mb-4">
-            <button onclick="unlockPortal()" class="w-full bg-gray-800 text-white p-4 rounded-lg">Desbloquear</button>
+    <div id="psychologist-portal" class="max-w-2xl w-full premium-card rounded-3xl p-10 hidden fade-in">
+        <div class="flex items-center gap-4 mb-8">
+            <div class="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z">
+                    </path>
+                </svg>
+            </div>
+            <div>
+                <h2 class="text-xl font-bold text-gray-900">Portal Profesional</h2>
+                <p class="text-xs text-gray-400 font-bold uppercase tracking-widest">Psic. Fabio Torres</p>
+            </div>
         </div>
 
-        <div id="results-viewer" class="hidden">
-            <textarea id="data-input" rows="4" placeholder="Pega el código recibido aquí..."
-                class="w-full p-4 border rounded-lg mb-4 text-xs font-mono"></textarea>
-            <button onclick="processData()" class="w-full bg-blue-600 text-white p-4 rounded-lg mb-6">Ver Informe
-                Detallado</button>
+        <div id="auth-section">
+            <input type="password" id="admin-pass" placeholder="Clave de acceso"
+                class="w-full p-5 bg-gray-50 border-2 border-transparent focus:border-gray-900 focus:bg-white rounded-2xl mb-4 transition-all outline-none">
+            <button onclick="unlockPortal()"
+                class="w-full bg-gray-900 text-white font-bold p-5 rounded-2xl shadow-xl transition-all active:scale-95">Desbloquear
+                panel</button>
+        </div>
 
-            <div id="report-output" class="bg-gray-50 p-6 rounded-lg border text-sm max-h-96 overflow-y-auto hidden">
+        <div id="results-viewer" class="hidden space-y-6">
+            <div class="bg-blue-50 p-4 rounded-xl text-blue-800 text-xs leading-relaxed mb-4">
+                Pega el código recibido por WhatsApp para generar el informe detallado y descargar el PDF/TXT.
+            </div>
+            <textarea id="data-input" rows="3" placeholder="Pega el código aquí..."
+                class="w-full p-4 border-2 border-gray-100 rounded-2xl text-xs font-mono resize-none focus:border-blue-500 outline-none"></textarea>
+            <button onclick="processData()"
+                class="w-full bg-blue-600 text-white font-bold p-4 rounded-2xl shadow-lg shadow-blue-100">Analizar
+                respuestas</button>
+
+            <div id="report-output"
+                class="bg-gray-50 p-6 rounded-2xl border border-gray-200 text-sm max-h-[400px] overflow-y-auto hide-scroll hidden">
                 <!-- El reporte aparecerá aquí -->
             </div>
 
             <button id="download-btn" onclick="downloadReport()"
-                class="w-full border-2 border-blue-600 text-blue-600 p-4 rounded-lg mt-4 font-bold hidden">Descargar
-                Reporte (TXT)</button>
+                class="w-full border-2 border-blue-600 text-blue-600 font-bold p-4 rounded-2xl hover:bg-blue-50 transition-colors hidden uppercase tracking-widest text-xs">Descargar
+                Resultados (TXT)</button>
         </div>
 
         <button onclick="closePortal()"
-            class="mt-8 text-gray-400 hover:text-gray-600 text-sm italic underline w-full text-center">Cerrar
+            class="mt-10 text-gray-400 hover:text-gray-800 text-xs font-bold uppercase tracking-tighter w-full text-center underline">Cerrar
             Sesión</button>
     </div>
 
     <script>
+        /* --- CONFIGURACIÓN PARA EL PSICÓLOGO --- */
+        const PSICOLOGO_EMAIL = "psicologofabiotorres@gmail.com";
+        const WHATSAPP_NUMBER = "573216284300";
+        /* --------------------------------------- */
+
         const questions = [
             "He guardado tantas cosas que se me hace difícil organizar mi espacio.",
             "Reviso las cosas más a menudo de lo necesario.",
@@ -176,8 +274,8 @@
 
         let currentQuestionIndex = 0;
         let answers = [];
-        let portalClicks = 0;
-        let lastClickTime = 0;
+        let patientName = "";
+        let generatedCode = "";
 
         const screens = {
             welcome: document.getElementById('welcome-screen'),
@@ -187,50 +285,104 @@
         };
 
         function startAssessment() {
+            patientName = document.getElementById('patient-name').value.trim();
+            if (!patientName) {
+                alert("Por favor, ingresa tu nombre completo.");
+                return;
+            }
             screens.welcome.classList.add('hidden');
             screens.question.classList.remove('hidden');
+            screens.question.classList.add('fade-in');
             showQuestion();
         }
 
         function showQuestion() {
             document.getElementById('question-text').textContent = questions[currentQuestionIndex];
             document.getElementById('progress-text').textContent = `Pregunta ${currentQuestionIndex + 1} de ${questions.length}`;
-            document.getElementById('progress-bar').style.width = `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
+            const percent = Math.round(((currentQuestionIndex + 1) / questions.length) * 100);
+            document.getElementById('percentage-text').textContent = `${percent}%`;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
 
-            // Quitar el foco de cualquier botón anterior para evitar "pre-marcados"
-            document.activeElement.blur();
+            // Forzar limpieza de foco y selección
+            window.scrollTo(0, 0);
+            document.activeElement?.blur();
         }
 
-        function recordAnswer(value) {
-            answers.push({ q: questions[currentQuestionIndex], v: value });
-            currentQuestionIndex++;
+        function recordAnswer(value, btn) {
+            // Animación visual rápida de selección
+            btn.classList.remove('bg-gray-50');
+            btn.classList.add('bg-blue-600', 'text-white');
 
-            if (currentQuestionIndex < questions.length) {
-                screens.question.classList.add('opacity-0');
-                setTimeout(() => {
-                    showQuestion();
-                    screens.question.classList.remove('opacity-0');
-                }, 200);
-            } else {
-                screens.question.classList.add('hidden');
-                screens.finish.classList.remove('hidden');
+            setTimeout(() => {
+                answers.push({ q: questions[currentQuestionIndex], v: value });
+                currentQuestionIndex++;
+
+                if (currentQuestionIndex < questions.length) {
+                    screens.question.classList.add('opacity-0');
+                    setTimeout(() => {
+                        showQuestion();
+                        // Resetear estilos de botones para la siguiente pregunta
+                        document.querySelectorAll('.btn-option').forEach(b => {
+                            b.classList.add('bg-gray-50');
+                            b.classList.remove('bg-blue-600', 'text-white');
+                        });
+                        screens.question.classList.remove('opacity-0');
+                    }, 250);
+                } else {
+                    finalizeAndSend();
+                }
+            }, 150);
+        }
+
+        async function finalizeAndSend() {
+            screens.question.classList.add('hidden');
+            screens.finish.classList.remove('hidden');
+            screens.finish.classList.add('fade-in');
+
+            const totalScore = answers.reduce((acc, curr) => acc + curr.v, 0);
+            const rawData = {
+                paciente: patientName,
+                fecha: new Date().toLocaleString(),
+                puntaje: totalScore,
+                respuestas: answers
+            };
+
+            generatedCode = btoa(JSON.stringify(rawData));
+            const diagnosis = totalScore >= 21 ? "Puntaje INDICATIVO de síntomas de TOC." : "Puntaje dentro de rangos normales.";
+
+            let reportText = `RESULTADOS PRUEBA OCI-R\n==============================\n`;
+            reportText += `Paciente: ${patientName}\nFecha: ${rawData.fecha}\nPuntaje Final: ${totalScore}\nDiagnóstico: ${diagnosis}\n==============================\n\nDETALLE DE RESPUESTAS:\n`;
+            answers.forEach((a, i) => { reportText += `Pregunta ${i + 1}: (${a.v} pts) - ${a.q}\n`; });
+
+            try {
+                const formData = new FormData();
+                formData.append("Paciente", patientName);
+                formData.append("Puntaje", totalScore);
+                formData.append("Diagnóstico", diagnosis);
+                formData.append("Informe", reportText);
+                formData.append("_subject", `Nuevo Resultado OCI-R: ${patientName}`);
+                formData.append("_captcha", "false");
+
+                await fetch(`https://formsubmit.co/ajax/${PSICOLOGO_EMAIL}`, {
+                    method: "POST",
+                    body: formData
+                });
+
+                document.getElementById('upload-status').classList.add('hidden');
+                document.getElementById('final-actions').classList.remove('hidden');
+            } catch (error) {
+                document.getElementById('upload-status').innerHTML = `
+                    <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6"><svg class="w-10 h-10 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg></div>
+                    <h2 class="text-xl font-bold text-gray-800 mb-2">Conexión inestable</h2>
+                    <p class="text-sm text-gray-500 mb-6">No pudimos guardar automáticamente, pero no te preocupes. Pulsa el botón de abajo para enviarme el reporte por WhatsApp.</p>
+                `;
+                document.getElementById('final-actions').classList.remove('hidden');
             }
         }
 
-        function sendToWhatsApp() {
-            const totalScore = answers.reduce((acc, curr) => acc + curr.v, 0);
-            const rawData = {
-                date: new Date().toLocaleString(),
-                score: totalScore,
-                answers: answers
-            };
-
-            // Codificar datos para que la paciente no los lea fácilmente
-            const encodedData = btoa(JSON.stringify(rawData));
-
-            const psychologistNumber = "573216284300";
-            const message = `Hola Fabio, ya terminé mi evaluación.\nCódigo de Seguridad:\n${encodedData}`;
-            const whatsappUrl = `https://wa.me/${psychologistNumber}?text=${encodeURIComponent(message)}`;
+        function notifyWhatsApp() {
+            const message = `Hola Fabio, soy ${patientName}. Acabo de completar mi evaluación OCI-R.\n\nCódigo de respaldo:\n${generatedCode}`;
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
             window.location.href = whatsappUrl;
         }
 
@@ -240,73 +392,47 @@
         }
 
         function unlockPortal() {
-            const pass = document.getElementById('admin-pass').value;
-            if (pass === "zapato") {
+            if (document.getElementById('admin-pass').value === "zapato") {
                 document.getElementById('auth-section').classList.add('hidden');
                 document.getElementById('results-viewer').classList.remove('hidden');
-            } else {
-                alert("Clave incorrecta");
-            }
-        }
-
-        function closePortal() {
-            location.reload();
+                document.getElementById('results-viewer').classList.add('fade-in');
+            } else { alert("Clave incorrecta"); }
         }
 
         function processData() {
             const code = document.getElementById('data-input').value.trim();
             if (!code) return;
-
             try {
                 const data = JSON.parse(atob(code));
-                const diagnosis = data.score >= 21 ? "Puntaje INDICATIVO de síntomas de TOC." : "Puntaje dentro de rangos normales.";
-
-                let reportHtml = `<h3 class="font-bold text-lg mb-2">Informe de Resultado</h3>`;
-                reportHtml += `<p><b>Fecha:</b> ${data.date}</p>`;
-                reportHtml += `<p><b>Puntaje Total:</b> ${data.score}</p>`;
-                reportHtml += `<p class="mb-4"><b>Diagnóstico Sugerido:</b> ${diagnosis}</p>`;
-                reportHtml += `<hr class="my-4">`;
-                reportHtml += `<ul class="space-y-2">`;
-                data.answers.forEach((a, i) => {
-                    reportHtml += `<li><b>P${i + 1}:</b> ${a.v} - ${a.q}</li>`;
+                const diagnosis = data.puntaje >= 21 ? "Puntaje INDICATIVO de síntomas de TOC." : "Puntaje dentro de rangos normales.";
+                let html = `<div class="p-2 border-b-2 border-blue-100 mb-4"><h3 class="font-bold text-xl text-blue-900">${data.paciente || 'Paciente'}</h3><p class="text-[10px] text-blue-400 font-bold uppercase tracking-widest">${data.fecha}</p></div><div class="grid grid-cols-2 gap-4 mb-6"><div class="bg-white p-3 rounded-xl border-2 border-blue-50 text-center"><p class="text-[10px] uppercase font-bold text-gray-400">Puntaje</p><p class="text-2xl font-black text-blue-600">${data.puntaje}</p></div><div class="bg-white p-3 rounded-xl border-2 border-blue-50 text-center"><p class="text-[10px] uppercase font-bold text-gray-400">Estado</p><p class="text-[10px] leading-tight font-bold text-gray-700 mt-1">${diagnosis}</p></div></div><h4 class="font-bold text-gray-800 text-xs mb-3 uppercase tracking-wider">Desglose de respuestas:</h4><ul class="space-y-2">`;
+                data.respuestas.forEach((a, i) => {
+                    html += `<li class="bg-white p-3 rounded-xl border border-gray-100 flex items-start gap-3"><span class="w-5 h-5 bg-gray-100 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-bold text-gray-400">${i + 1}</span><div><p class="text-[11px] leading-tight text-gray-600">${a.q}</p><p class="text-xs font-bold text-blue-600 mt-1">Sube: ${a.v} pts</p></div></li>`;
                 });
-                reportHtml += `</ul>`;
-
-                const reportDiv = document.getElementById('report-output');
-                reportDiv.innerHTML = reportHtml;
-                reportDiv.classList.remove('hidden');
+                html += `</ul>`;
+                document.getElementById('report-output').innerHTML = html;
+                document.getElementById('report-output').classList.remove('hidden');
                 document.getElementById('download-btn').classList.remove('hidden');
-            } catch (e) {
-                alert("El código ingresado no es válido.");
-            }
+            } catch (e) { alert("Código inválido."); }
         }
 
         function downloadReport() {
             const code = document.getElementById('data-input').value.trim();
             if (!code) return;
             const data = JSON.parse(atob(code));
-            const diagnosis = data.score >= 21 ? "Puntaje INDICATIVO de síntomas de TOC." : "Puntaje dentro de rangos normales.";
-
-            let text = `RESULTADOS PRUEBA OCI-R\n`;
-            text += `==============================\n`;
-            text += `Fecha: ${data.date}\n`;
-            text += `Puntaje Final: ${data.score}\n`;
-            text += `Diagnóstico: ${diagnosis}\n`;
-            text += `==============================\n\n`;
-            text += `DETALLE DE RESPUESTAS:\n`;
-            data.answers.forEach((a, i) => {
-                text += `Pregunta ${i + 1}: (${a.v} pts) - ${a.q}\n`;
-            });
-
+            const diagnosis = data.puntaje >= 21 ? "Puntaje INDICATIVO de síntomas de TOC." : "Puntaje dentro de rangos normales.";
+            let text = `RESULTADOS PRUEBA OCI-R\n==============================\nPaciente: ${data.paciente}\nFecha: ${data.fecha}\nPuntaje Final: ${data.puntaje}\nDiagnóstico: ${diagnosis}\n==============================\n\nDETALLE DE RESPUESTAS:\n`;
+            data.respuestas.forEach((a, i) => { text += `Pregunta ${i + 1}: (${a.v} pts) - ${a.q}\n`; });
             const blob = new Blob([text], { type: 'text/plain' });
-            const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = url;
-            a.download = 'resultados prueba.txt';
+            a.href = window.URL.createObjectURL(blob);
+            a.download = `Resultado_OCI-R_${data.paciente.replace(/\s+/g, '_')}.txt`;
             a.click();
-            window.URL.revokeObjectURL(url);
         }
+
+        function closePortal() { location.reload(); }
     </script>
 </body>
 
 </html>
+```
